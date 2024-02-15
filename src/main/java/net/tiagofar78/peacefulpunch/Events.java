@@ -7,9 +7,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.tiagofar78.peacefulpunch.managers.ConfigManager;
+
 public class Events implements Listener {
-	
-	private static final String[] WEAPONS_NAMES = { "SWORD", "AXE", "BOW", "TRIDENT" }; // Depois deve ser para tirar
 	
 	@EventHandler
 	public void onAttackMob(EntityDamageByEntityEvent e) {
@@ -27,23 +27,18 @@ public class Events implements Listener {
 			return;
 		}
 		
-		if (!isWeapon(item)) {
+		ConfigManager config = ConfigManager.getInstance();
+		
+		if (config.isMaterialBlocked(item.getType())) {
 			e.setCancelled(true);
 			return;
 		}
 		
-	}
-	
-	private boolean isWeapon(ItemStack item) {
-		String materialName = item.getType().toString();
-		
-		for (String weapon : WEAPONS_NAMES) {
-			if (materialName.contains(weapon)) {
-				return true;
-			}
+		if (!config.isMobHurtable(e.getEntity().getType())) {
+			e.setCancelled(true);
+			return;
 		}
 		
-		return false;
 	}
 
 }

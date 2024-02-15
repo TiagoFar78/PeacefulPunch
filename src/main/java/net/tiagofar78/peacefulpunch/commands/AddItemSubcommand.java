@@ -1,14 +1,41 @@
 package net.tiagofar78.peacefulpunch.commands;
 
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+
+import net.tiagofar78.peacefulpunch.PeacefulPunch;
+import net.tiagofar78.peacefulpunch.managers.ConfigManager;
 
 public class AddItemSubcommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		return false;
+		ConfigManager config = ConfigManager.getInstance();
+		
+		if (!sender.hasPermission(PeacefulPunch.ADD_ITEM_PERMISSION)) {
+			sender.sendMessage(config.getNotAllowedMessage());
+			return false;
+		}
+		
+		if (args.length != 2) {
+			sender.sendMessage(config.getUsageMessage());
+			return false;
+		}
+		
+		String materialName = args[1];
+		
+		Material material = Material.getMaterial(materialName);
+		if (material == null) {
+			sender.sendMessage(config.getInvalidMaterialMessage().replace("{MATERIAL}", materialName));
+			return false;
+		}
+		
+		config.addBlockedMaterial(material);
+		// TODO add a confirmation message
+		
+		return true;
 	}
 
 }

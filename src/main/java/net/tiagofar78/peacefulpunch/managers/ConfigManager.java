@@ -60,6 +60,11 @@ public class ConfigManager {
 	public void addBlockedMaterial(Material type) {
 		if (!_blockedMaterials.contains(type)) {
 			_blockedMaterials.add(type);
+			
+			YamlConfiguration config = PeacefulPunch.getYamlConfiguration();
+			
+			config.set("BlockedMaterials", type.toString());
+			PeacefulPunch.saveConfiguration(config);
 		}
 	}
 	
@@ -68,7 +73,7 @@ public class ConfigManager {
 	}
 	
 	public boolean isMobHurtable(EntityType type) {
-		return _blockedMobs.contains(type);
+		return !_blockedMobs.contains(type);
 	}
 	
 	public void addBlockedMob(EntityType type) {
@@ -79,6 +84,19 @@ public class ConfigManager {
 	
 	public void removeBlockedMob(EntityType type) {
 		_blockedMobs.remove(type);
+	}
+	
+	
+	public String getUsageMessage() {
+		return null;
+	}
+	
+	public String getNotAllowedMessage() {
+		return null;
+	}
+	
+	public String getInvalidMaterialMessage() {
+		return null; // Nao esquecer .replace
 	}
 
 }

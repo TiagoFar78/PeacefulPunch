@@ -5,3 +5,5 @@ BlockedMaterials:
 # Mobs names must be used like they are here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html
 BlockedMobs:
 - "WOLF"
+Messages:
+  Errors:
