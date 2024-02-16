@@ -21,6 +21,14 @@ public class ConfigManager {
 	private List<Material> _blockedMaterials = new ArrayList<Material>();
 	private List<EntityType> _blockedMobs = new ArrayList<EntityType>();
 	
+	private String _addedItemMessage;
+	
+	private String _notAlloweMessage;
+	private String _invalidMaterialMessage;
+	private String _alreadyBlockedItemMessage;
+	
+	private String _usageMessage;
+	
 	private ConfigManager() {
 		YamlConfiguration config = PeacefulPunch.getYamlConfiguration();
 		
@@ -49,7 +57,13 @@ public class ConfigManager {
 			if (!_blockedMobs.contains(type)) {
 				_blockedMobs.add(type);
 			}
-		}		
+		}
+		
+		_addedItemMessage = config.getString("Messages.Warnings.AddedItem").replace("&", "§");
+		
+		_notAlloweMessage = config.getString("Messages.Errors.NotAllowed").replace("&", "§");
+		_invalidMaterialMessage = config.getString("Messages.Errors.InvalidItem").replace("&", "§");
+		_alreadyBlockedItemMessage = config.getString("Messages.Errors.AlreadyBlocked").replace("&", "§");
 		
 	}
 	
@@ -57,7 +71,11 @@ public class ConfigManager {
 		return _blockedMaterials.contains(type);
 	}
 	
-	public void addBlockedMaterial(Material type) {
+	/** 
+	* @return          	0 if was added<br>
+	* 					1 if was already added
+	*/
+	public int addBlockedMaterial(Material type) {
 		if (!_blockedMaterials.contains(type)) {
 			_blockedMaterials.add(type);
 			
@@ -65,7 +83,11 @@ public class ConfigManager {
 			
 			config.set("BlockedMaterials", type.toString());
 			PeacefulPunch.saveConfiguration(config);
+			
+			return 0;
 		}
+		
+		return 1;
 	}
 	
 	public void removeBlockedMaterial(Material type) {
@@ -87,16 +109,24 @@ public class ConfigManager {
 	}
 	
 	
-	public String getUsageMessage() {
-		return null;
+	public String getAddedItemMessage() {
+		return _addedItemMessage;
 	}
 	
 	public String getNotAllowedMessage() {
-		return null;
+		return _notAlloweMessage;
 	}
 	
 	public String getInvalidMaterialMessage() {
-		return null; // Nao esquecer .replace
+		return _invalidMaterialMessage.substring(0); // Nao esquecer .replace
+	}
+	
+	public String getAlreadyBlockedItemMessage() {
+		return _alreadyBlockedItemMessage;
+	}
+	
+	public String getUsageMessage() {
+		return _usageMessage;
 	}
 
 }

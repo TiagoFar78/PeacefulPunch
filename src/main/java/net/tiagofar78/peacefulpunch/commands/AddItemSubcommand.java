@@ -32,8 +32,13 @@ public class AddItemSubcommand implements CommandExecutor {
 			return false;
 		}
 		
-		config.addBlockedMaterial(material);
-		// TODO add a confirmation message
+		int returnCode = config.addBlockedMaterial(material);
+		if (returnCode == 0) {
+			sender.sendMessage(config.getAddedItemMessage());
+		}
+		else if (returnCode == 1) {
+			sender.sendMessage(config.getAlreadyBlockedItemMessage());
+		}
 		
 		return true;
 	}
