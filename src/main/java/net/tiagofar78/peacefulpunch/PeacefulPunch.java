@@ -9,9 +9,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class PeacefulPunch extends JavaPlugin {
 	
-	public static final String ADD_ITEM_PERMISSION = "PeacefulPunch.AddItem";
-	public static final String DELETE_ITEM_PERMISSION = "PeacefulPunch.DeleteItem";
-	public static final String LIST_ITEMS_PERMISSION = "PeacefulPunch.List";
+	public static final String ADD_ITEM_PERMISSION = "PeacefulPunch.Item.Add";
+	public static final String DELETE_ITEM_PERMISSION = "PeacefulPunch.Item.Delete";
+	public static final String LIST_ITEMS_PERMISSION = "PeacefulPunch.Item.List";
+	public static final String ADD_MOB_PERMISSION = "PeacefulPunch.Mob.Add";
+	public static final String DELETE_MOB_PERMISSION = "PeacefulPunch.Mob.Delete";
+	public static final String LIST_MOBS_PERMISSION = "PeacefulPunch.Mob.List";
 	public static final String HELP_PERMISSION = "PeacefulPunch.Help";
 	
 	@Override

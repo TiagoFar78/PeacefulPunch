@@ -9,14 +9,21 @@ Messages:
   Warnings:
     ItemAdded: "&aNew item allowed."
     ItemRemoved: "&aItem removed successfully."
+    MobAdded: "&aNew mob blocked."
+    MobRemoved: "&aMob removed successfully."
   Errors:
     NotAllowed: "&cNot allowed!"
-    AlreadyAllowedItem: "&cThat item is already blocked."
+    AlreadyAllowedItem: "&cThat item is already allowed."
     NotAddedYetItem: "&cThat item was is not allowed yet."
     NoItemsAllowed: "&cThere are no items allowed."
-    InvalidItem: "Material {MATERIAL} not found. Check out available materials in https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html"
+    InvalidItem: "Material {MATERIAL} not found. Check out available materials in https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html "
+    AlreadyBlockedMob: "&cThat mob is already blocked."
+    NotAddedYetMob: "&cThat mob was is not blocked yet."
+    NoMobsAllowed: "&cThere are no mobs blocked."
+    InvalidMob: "Mob {MOB} not found. Check out available mobs in https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html "
   Usage:
   - "Usage:"
   - "/PeacefulPunch AddItem (material)"
   - "/PeacefulPunch DeleteItem (material)"
   - "/PeacefulPunch ItemList"
+  - "/PeacefulPunch AddMob (mob)"

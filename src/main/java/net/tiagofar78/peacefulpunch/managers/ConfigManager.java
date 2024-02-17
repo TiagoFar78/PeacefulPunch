@@ -23,12 +23,18 @@ public class ConfigManager {
 	
 	private String _addedItemMessage;
 	private String _removedItemMessage;
+	private String _addedMobMessage;
+	private String _removedMobMessage;
 	
 	private String _notAlloweMessage;
 	private String _invalidMaterialMessage;
-	private String _alreadyBlockedItemMessage;
+	private String _alreadyAllowedItemMessage;
 	private String _notAddedYetItemMessage;
 	private String _noItemsAllowedMessage;
+	private String _invalidMobMessage;
+	private String _alreadyBlockedMobMessage;
+	private String _notAddedYetMobMessage;
+	private String _noMobsBlockedMessage;	
 	
 	private String _usageMessage;
 	
@@ -64,14 +70,22 @@ public class ConfigManager {
 		
 		_addedItemMessage = config.getString("Messages.Warnings.ItemAdded").replace("&", "§");
 		_removedItemMessage = config.getString("Messages.Warnings.ItemRemoved").replace("&", "§");
+		_addedMobMessage = config.getString("Messages.Warnings.MobAdded").replace("&", "§");
+		_removedMobMessage = config.getString("Messages.Warnings.MobRemoved").replace("&", "§");
 		
 		_notAlloweMessage = config.getString("Messages.Errors.NotAllowed").replace("&", "§");
 		_invalidMaterialMessage = config.getString("Messages.Errors.InvalidItem").replace("&", "§");
-		_alreadyBlockedItemMessage = config.getString("Messages.Errors.AlreadyAllowedItem").replace("&", "§");
+		_alreadyAllowedItemMessage = config.getString("Messages.Errors.AlreadyAllowedItem").replace("&", "§");
 		_notAddedYetItemMessage = config.getString("Messages.Errors.NotAddedYetItem").replace("&", "§");
 		_noItemsAllowedMessage = config.getString("Messages.Errors.NoItemsAllowed").replace("&", "§");
+		_invalidMobMessage = config.getString("Messages.Errors.InvalidMob").replace("&", "§");
+		_alreadyBlockedMobMessage = config.getString("Messages.Errors.AlreadyBlockedMob").replace("&", "§");
+		_notAddedYetMobMessage = config.getString("Messages.Errors.NotAddedYetMob").replace("&", "§");
+		_noMobsBlockedMessage = config.getString("Messages.Errors.NoMobsBlocked").replace("&", "§");
 		
 	}
+	
+//	>--------------------------------------{ Lists }--------------------------------------<
 	
 	public boolean isMaterialBlocked(Material type) {
 		return !_allowedMaterials.contains(type);
@@ -123,16 +137,33 @@ public class ConfigManager {
 		return !_blockedMobs.contains(type);
 	}
 	
-	public void addBlockedMob(EntityType type) {
+	/** 
+	* @return          	0 if was added<br>
+	* 					1 if was already added
+	*/
+	public int addBlockedMob(EntityType type) {
 		if (!_blockedMobs.contains(type)) {
 			_blockedMobs.add(type);
+			return 0;
 		}
+		
+		return 1;
 	}
 	
-	public void removeBlockedMob(EntityType type) {
+	/** 
+	* @return          	0 if was removed<br>
+	* 					1 if was not added yet
+	*/
+	public int removeBlockedMob(EntityType type) {
+		if (_blockedMobs.contains(type)) {
+			return 1;
+		}
+		
 		_blockedMobs.remove(type);
+		return 0;
 	}
 	
+//	>--------------------------------------{ Messages }--------------------------------------<
 	
 	public String getAddedItemMessage() {
 		return _addedItemMessage;
@@ -140,6 +171,14 @@ public class ConfigManager {
 	
 	public String getRemovedItemMessage() {
 		return _removedItemMessage;
+	}
+	
+	public String getAddedMobMessage() {
+		return _addedMobMessage;
+	}
+	
+	public String getRemovedMobMessage() {
+		return _removedMobMessage;
 	}
 	
 	public String getNotAllowedMessage() {
@@ -151,7 +190,7 @@ public class ConfigManager {
 	}
 	
 	public String getAlreadyAllowedItemMessage() {
-		return _alreadyBlockedItemMessage;
+		return _alreadyAllowedItemMessage;
 	}
 	
 	public String getNotAddedYetItemMessage() {
@@ -160,6 +199,22 @@ public class ConfigManager {
 	
 	public String getNoItemsAllowedMessage() {
 		return _noItemsAllowedMessage;
+	}
+	
+	public String getAlreadyBlockedMobMessage() {
+		return _alreadyBlockedMobMessage;
+	}
+	
+	public String getNotAddedYetMobMessage() {
+		return _notAddedYetMobMessage;
+	}
+	
+	public String getNoMobsBlockedMessage() {
+		return _noMobsBlockedMessage;
+	}
+	
+	public String getInvalidMobMessage() {
+		return _invalidMobMessage.substring(0);
 	}
 	
 	public String getUsageMessage() {
