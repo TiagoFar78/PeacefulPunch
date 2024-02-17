@@ -28,6 +28,7 @@ public class ConfigManager {
 	private String _invalidMaterialMessage;
 	private String _alreadyBlockedItemMessage;
 	private String _notAddedYetItemMessage;
+	private String _noItemsAllowedMessage;
 	
 	private String _usageMessage;
 	
@@ -68,11 +69,16 @@ public class ConfigManager {
 		_invalidMaterialMessage = config.getString("Messages.Errors.InvalidItem").replace("&", "§");
 		_alreadyBlockedItemMessage = config.getString("Messages.Errors.AlreadyAllowedItem").replace("&", "§");
 		_notAddedYetItemMessage = config.getString("Messages.Errors.NotAddedYetItem").replace("&", "§");
+		_noItemsAllowedMessage = config.getString("Messages.Errors.NoItemsAllowed").replace("&", "§");
 		
 	}
 	
 	public boolean isMaterialBlocked(Material type) {
 		return !_allowedMaterials.contains(type);
+	}
+	
+	public List<Material> getMaterialsAllowedList() {
+		return _allowedMaterials;
 	}
 	
 	/** 
@@ -150,6 +156,10 @@ public class ConfigManager {
 	
 	public String getNotAddedYetItemMessage() {
 		return _notAddedYetItemMessage;
+	}
+	
+	public String getNoItemsAllowedMessage() {
+		return _noItemsAllowedMessage;
 	}
 	
 	public String getUsageMessage() {

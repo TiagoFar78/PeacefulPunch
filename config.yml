@@ -7,13 +7,16 @@ BlockedMobs:
 - "WOLF"
 Messages:
   Warnings:
-    ItemAdded: "&aNew item blocked."
+    ItemAdded: "&aNew item allowed."
     ItemRemoved: "&aItem removed successfully."
   Errors:
     NotAllowed: "&cNot allowed!"
     AlreadyAllowedItem: "&cThat item is already blocked."
     NotAddedYetItem: "&cThat item was is not allowed yet."
+    NoItemsAllowed: "&cThere are no items allowed."
     InvalidItem: "Material {MATERIAL} not found. Check out available materials in https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html"
   Usage:
   - "Usage:"
-  - "/PeacefulPunch additem (material)"
+  - "/PeacefulPunch AddItem (material)"
+  - "/PeacefulPunch DeleteItem (material)"
+  - "/PeacefulPunch ItemList"

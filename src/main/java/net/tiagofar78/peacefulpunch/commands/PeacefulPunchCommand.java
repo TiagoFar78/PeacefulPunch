@@ -19,7 +19,7 @@ public class PeacefulPunchCommand implements CommandExecutor {
 			return new AddItemSubcommand().onCommand(sender, command, label, args);
 		case "deleteitem":
 			return new DeleteItemSubcommand().onCommand(sender, command, label, args);
-		case "list":
+		case "itemlist":
 			return new ListItemsSubcommand().onCommand(sender, command, label, args);
 		case "allowmobhurt":
 			return new AllowMobHurtSubcommand().onCommand(sender, command, label, args);
