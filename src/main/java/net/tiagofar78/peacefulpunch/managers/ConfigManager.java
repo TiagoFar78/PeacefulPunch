@@ -18,29 +18,31 @@ public class ConfigManager {
 		return instance;
 	}
 	
-	private List<Material> _blockedMaterials = new ArrayList<Material>();
+	private List<Material> _allowedMaterials = new ArrayList<Material>();
 	private List<EntityType> _blockedMobs = new ArrayList<EntityType>();
 	
 	private String _addedItemMessage;
+	private String _removedItemMessage;
 	
 	private String _notAlloweMessage;
 	private String _invalidMaterialMessage;
 	private String _alreadyBlockedItemMessage;
+	private String _notAddedYetItemMessage;
 	
 	private String _usageMessage;
 	
 	private ConfigManager() {
 		YamlConfiguration config = PeacefulPunch.getYamlConfiguration();
 		
-		for (String materialName : config.getStringList("BlockedMaterials")) {
+		for (String materialName : config.getStringList("AllowedMaterials")) {
 			Material material = Material.getMaterial(materialName);
 			if (material == null) {
 				Bukkit.getLogger().warning("PeacefulPunch was not able to find a material named " + materialName);
 				continue;
 			}
 			
-			if (!_blockedMaterials.contains(material)) {
-				_blockedMaterials.add(material);
+			if (!_allowedMaterials.contains(material)) {
+				_allowedMaterials.add(material);
 			}
 		}
 		
@@ -59,29 +61,31 @@ public class ConfigManager {
 			}
 		}
 		
-		_addedItemMessage = config.getString("Messages.Warnings.AddedItem").replace("&", "§");
+		_addedItemMessage = config.getString("Messages.Warnings.ItemAdded").replace("&", "§");
+		_removedItemMessage = config.getString("Messages.Warnings.ItemRemoved").replace("&", "§");
 		
 		_notAlloweMessage = config.getString("Messages.Errors.NotAllowed").replace("&", "§");
 		_invalidMaterialMessage = config.getString("Messages.Errors.InvalidItem").replace("&", "§");
-		_alreadyBlockedItemMessage = config.getString("Messages.Errors.AlreadyBlocked").replace("&", "§");
+		_alreadyBlockedItemMessage = config.getString("Messages.Errors.AlreadyAllowedItem").replace("&", "§");
+		_notAddedYetItemMessage = config.getString("Messages.Errors.NotAddedYetItem").replace("&", "§");
 		
 	}
 	
 	public boolean isMaterialBlocked(Material type) {
-		return _blockedMaterials.contains(type);
+		return !_allowedMaterials.contains(type);
 	}
 	
 	/** 
 	* @return          	0 if was added<br>
 	* 					1 if was already added
 	*/
-	public int addBlockedMaterial(Material type) {
-		if (!_blockedMaterials.contains(type)) {
-			_blockedMaterials.add(type);
+	public int addAllowedMaterial(Material type) {
+		if (!_allowedMaterials.contains(type)) {
+			_allowedMaterials.add(type);
 			
 			YamlConfiguration config = PeacefulPunch.getYamlConfiguration();
 			
-			config.set("BlockedMaterials", type.toString());
+			config.set("AllowedMaterials", _allowedMaterials);
 			PeacefulPunch.saveConfiguration(config);
 			
 			return 0;
@@ -90,8 +94,23 @@ public class ConfigManager {
 		return 1;
 	}
 	
-	public void removeBlockedMaterial(Material type) {
-		_blockedMaterials.remove(type);
+	/** 
+	* @return          	0 if was removed<br>
+	* 					1 if was not added yet
+	*/
+	public int removeAllowedMaterial(Material type) {
+		if (!_allowedMaterials.contains(type)) {
+			return 1;
+		}
+		
+		_allowedMaterials.remove(type);
+		
+		YamlConfiguration config = PeacefulPunch.getYamlConfiguration();
+		
+		config.set("AllowedMaterials", _allowedMaterials);
+		PeacefulPunch.saveConfiguration(config);
+		
+		return 0;
 	}
 	
 	public boolean isMobHurtable(EntityType type) {
@@ -113,16 +132,24 @@ public class ConfigManager {
 		return _addedItemMessage;
 	}
 	
+	public String getRemovedItemMessage() {
+		return _removedItemMessage;
+	}
+	
 	public String getNotAllowedMessage() {
 		return _notAlloweMessage;
 	}
 	
 	public String getInvalidMaterialMessage() {
-		return _invalidMaterialMessage.substring(0); // Nao esquecer .replace
+		return _invalidMaterialMessage.substring(0);
 	}
 	
-	public String getAlreadyBlockedItemMessage() {
+	public String getAlreadyAllowedItemMessage() {
 		return _alreadyBlockedItemMessage;
+	}
+	
+	public String getNotAddedYetItemMessage() {
+		return _notAddedYetItemMessage;
 	}
 	
 	public String getUsageMessage() {

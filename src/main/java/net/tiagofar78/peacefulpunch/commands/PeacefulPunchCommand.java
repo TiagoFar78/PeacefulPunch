@@ -28,11 +28,10 @@ public class PeacefulPunchCommand implements CommandExecutor {
 		case "moblist":
 			return new ListMobsSubcommand().onCommand(sender, command, label, args);
 		case "help":
+		default:
 			sendUsageMessage(sender);
 			return true;
 		}
-		
-		return false;
 	}
 	
 	private void sendUsageMessage(CommandSender sender) {

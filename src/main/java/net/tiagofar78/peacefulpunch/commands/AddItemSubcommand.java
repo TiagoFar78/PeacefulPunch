@@ -32,12 +32,12 @@ public class AddItemSubcommand implements CommandExecutor {
 			return false;
 		}
 		
-		int returnCode = config.addBlockedMaterial(material);
+		int returnCode = config.addAllowedMaterial(material);
 		if (returnCode == 0) {
 			sender.sendMessage(config.getAddedItemMessage());
 		}
 		else if (returnCode == 1) {
-			sender.sendMessage(config.getAlreadyBlockedItemMessage());
+			sender.sendMessage(config.getAlreadyAllowedItemMessage());
 		}
 		
 		return true;

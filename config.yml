@@ -1,5 +1,5 @@
 # Items names must be used like they are here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
-BlockedMaterials:
+AllowedMaterials:
 - "DIAMOND_SWORD"
 - "DIAMOND_AXE"
 # Mobs names must be used like they are here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html
@@ -7,10 +7,12 @@ BlockedMobs:
 - "WOLF"
 Messages:
   Warnings:
-    ItemAdded: "&aNew item blocked"
+    ItemAdded: "&aNew item blocked."
+    ItemRemoved: "&aItem removed successfully."
   Errors:
     NotAllowed: "&cNot allowed!"
-    AlreadyBlocked: "&cThat item is already blocked"
+    AlreadyAllowedItem: "&cThat item is already blocked."
+    NotAddedYetItem: "&cThat item was is not allowed yet."
     InvalidItem: "Material {MATERIAL} not found. Check out available materials in https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html"
   Usage:
   - "Usage:"
