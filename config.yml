@@ -23,7 +23,10 @@ Messages:
     InvalidMob: "Mob {MOB} not found. Check out available mobs in https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html "
   Usage:
   - "Usage:"
+  - "/PeacefulPunch Help"
   - "/PeacefulPunch AddItem (material)"
   - "/PeacefulPunch DeleteItem (material)"
   - "/PeacefulPunch ItemList"
-  - "/PeacefulPunch AddMob (mob)"
+  - "/PeacefulPunch AllowMobHurt (mob)"
+  - "/PeacefulPunch DenyMobHurt (mob)"
+  - "/PeacefulPunch MobList"

@@ -137,6 +137,10 @@ public class ConfigManager {
 		return !_blockedMobs.contains(type);
 	}
 	
+	public List<EntityType> getBlockedMobsList() {
+		return _blockedMobs;
+	}
+	
 	/** 
 	* @return          	0 if was added<br>
 	* 					1 if was already added
