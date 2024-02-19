@@ -35,9 +35,13 @@ public class AllowMobHurtSubcommand implements CommandExecutor {
 			return false;
 		}
 		
-		int returnCode = config.addBlockedMob(type);
+		int returnCode = config.removeBlockedMob(type);
 		if (returnCode == 0) {
 			sender.sendMessage(config.getAddedMobMessage());
+			
+			if (type == EntityType.WOLF) {
+				sender.sendMessage(config.getWolfRemovedMessage());
+			}
 		}
 		else if (returnCode == 1) {
 			sender.sendMessage(config.getAlreadyBlockedMobMessage());

@@ -7,15 +7,17 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.tiagofar78.peacefulpunch.commands.PeacefulPunchCommand;
+
 public class PeacefulPunch extends JavaPlugin {
 	
-	public static final String ADD_ITEM_PERMISSION = "PeacefulPunch.Item.Add";
-	public static final String DELETE_ITEM_PERMISSION = "PeacefulPunch.Item.Delete";
-	public static final String LIST_ITEMS_PERMISSION = "PeacefulPunch.Item.List";
-	public static final String ADD_MOB_PERMISSION = "PeacefulPunch.Mob.Add";
-	public static final String DELETE_MOB_PERMISSION = "PeacefulPunch.Mob.Delete";
-	public static final String LIST_MOBS_PERMISSION = "PeacefulPunch.Mob.List";
-	public static final String HELP_PERMISSION = "PeacefulPunch.Help";
+	public static final String ADD_ITEM_PERMISSION = "TF_PeacefulPunch.Item.Add";
+	public static final String DELETE_ITEM_PERMISSION = "TF_PeacefulPunch.Item.Delete";
+	public static final String LIST_ITEMS_PERMISSION = "TF_PeacefulPunch.Item.List";
+	public static final String ADD_MOB_PERMISSION = "TF_PeacefulPunch.Mob.Add";
+	public static final String DELETE_MOB_PERMISSION = "TF_PeacefulPunch.Mob.Delete";
+	public static final String LIST_MOBS_PERMISSION = "TF_PeacefulPunch.Mob.List";
+	public static final String HELP_PERMISSION = "TF_PeacefulPunch.Help";
 	
 	@Override
 	public void onEnable() {		
@@ -24,6 +26,8 @@ public class PeacefulPunch extends JavaPlugin {
 		}
 		
 		getServer().getPluginManager().registerEvents(new Events(), this);
+		
+		getCommand("PeacefulPunch").setExecutor(new PeacefulPunchCommand());
 	}
 	
 	public static YamlConfiguration getYamlConfiguration() {

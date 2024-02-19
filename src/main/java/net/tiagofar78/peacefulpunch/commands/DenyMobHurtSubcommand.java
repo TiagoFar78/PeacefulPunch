@@ -35,13 +35,9 @@ public class DenyMobHurtSubcommand implements CommandExecutor {
 			return false;
 		}
 		
-		int returnCode = config.removeBlockedMob(type);
+		int returnCode = config.addBlockedMob(type);
 		if (returnCode == 0) {
 			sender.sendMessage(config.getRemovedMobMessage());
-			
-			if (type == EntityType.WOLF) {
-				// TODO warning
-			}
 		}
 		else if (returnCode == 1) {
 			sender.sendMessage(config.getAlreadyBlockedMobMessage());

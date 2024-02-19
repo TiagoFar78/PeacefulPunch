@@ -25,6 +25,7 @@ public class ConfigManager {
 	private String _removedItemMessage;
 	private String _addedMobMessage;
 	private String _removedMobMessage;
+	private String _wolfRemovedMessage;
 	
 	private String _notAlloweMessage;
 	private String _invalidMaterialMessage;
@@ -36,7 +37,7 @@ public class ConfigManager {
 	private String _notAddedYetMobMessage;
 	private String _noMobsBlockedMessage;	
 	
-	private String _usageMessage;
+	private String[] _usageMessage;
 	
 	private ConfigManager() {
 		YamlConfiguration config = PeacefulPunch.getYamlConfiguration();
@@ -72,6 +73,7 @@ public class ConfigManager {
 		_removedItemMessage = config.getString("Messages.Warnings.ItemRemoved").replace("&", "§");
 		_addedMobMessage = config.getString("Messages.Warnings.MobAdded").replace("&", "§");
 		_removedMobMessage = config.getString("Messages.Warnings.MobRemoved").replace("&", "§");
+		_wolfRemovedMessage = config.getString("Messages.Warnings.WolfRemoved").replace("&", "§");
 		
 		_notAlloweMessage = config.getString("Messages.Errors.NotAllowed").replace("&", "§");
 		_invalidMaterialMessage = config.getString("Messages.Errors.InvalidItem").replace("&", "§");
@@ -83,6 +85,11 @@ public class ConfigManager {
 		_notAddedYetMobMessage = config.getString("Messages.Errors.NotAddedYetMob").replace("&", "§");
 		_noMobsBlockedMessage = config.getString("Messages.Errors.NoMobsBlocked").replace("&", "§");
 		
+		List<String> usageMessageList = config.getStringList("Messages.Usage");
+		_usageMessage = new String[usageMessageList.size()];
+		for (int i = 0; i < _usageMessage.length; i++) {
+			_usageMessage[i] = usageMessageList.get(i).replace("&", "§");
+		}
 	}
 	
 //	>--------------------------------------{ Lists }--------------------------------------<
@@ -103,9 +110,14 @@ public class ConfigManager {
 		if (!_allowedMaterials.contains(type)) {
 			_allowedMaterials.add(type);
 			
+			List<String> allowedMaterialsNames = new ArrayList<>();
+			for (Material material : _allowedMaterials) {
+				allowedMaterialsNames.add(material.toString());
+			}
+			
 			YamlConfiguration config = PeacefulPunch.getYamlConfiguration();
 			
-			config.set("AllowedMaterials", _allowedMaterials);
+			config.set("AllowedMaterials", allowedMaterialsNames);
 			PeacefulPunch.saveConfiguration(config);
 			
 			return 0;
@@ -125,9 +137,14 @@ public class ConfigManager {
 		
 		_allowedMaterials.remove(type);
 		
+		List<String> allowedMaterialsNames = new ArrayList<>();
+		for (Material material : _allowedMaterials) {
+			allowedMaterialsNames.add(material.toString());
+		}
+		
 		YamlConfiguration config = PeacefulPunch.getYamlConfiguration();
 		
-		config.set("AllowedMaterials", _allowedMaterials);
+		config.set("AllowedMaterials", allowedMaterialsNames);
 		PeacefulPunch.saveConfiguration(config);
 		
 		return 0;
@@ -148,6 +165,17 @@ public class ConfigManager {
 	public int addBlockedMob(EntityType type) {
 		if (!_blockedMobs.contains(type)) {
 			_blockedMobs.add(type);
+			
+			List<String> blockedMobssNames = new ArrayList<>();
+			for (EntityType mob : _blockedMobs) {
+				blockedMobssNames.add(mob.toString());
+			}
+			
+			YamlConfiguration config = PeacefulPunch.getYamlConfiguration();
+			
+			config.set("BlockedMobs", blockedMobssNames);
+			PeacefulPunch.saveConfiguration(config);
+			
 			return 0;
 		}
 		
@@ -159,11 +187,22 @@ public class ConfigManager {
 	* 					1 if was not added yet
 	*/
 	public int removeBlockedMob(EntityType type) {
-		if (_blockedMobs.contains(type)) {
+		if (!_blockedMobs.contains(type)) {
 			return 1;
 		}
 		
 		_blockedMobs.remove(type);
+		
+		List<String> blockedMobssNames = new ArrayList<>();
+		for (EntityType mob : _blockedMobs) {
+			blockedMobssNames.add(mob.toString());
+		}
+		
+		YamlConfiguration config = PeacefulPunch.getYamlConfiguration();
+		
+		config.set("BlockedMobs", blockedMobssNames);
+		PeacefulPunch.saveConfiguration(config);
+		
 		return 0;
 	}
 	
@@ -187,6 +226,10 @@ public class ConfigManager {
 	
 	public String getNotAllowedMessage() {
 		return _notAlloweMessage;
+	}
+	
+	public String getWolfRemovedMessage() {
+		return _wolfRemovedMessage;
 	}
 	
 	public String getInvalidMaterialMessage() {
@@ -221,7 +264,7 @@ public class ConfigManager {
 		return _invalidMobMessage.substring(0);
 	}
 	
-	public String getUsageMessage() {
+	public String[] getUsageMessage() {
 		return _usageMessage;
 	}
 

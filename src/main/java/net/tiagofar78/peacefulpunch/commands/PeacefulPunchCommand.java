@@ -4,6 +4,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import net.tiagofar78.peacefulpunch.managers.ConfigManager;
+
 public class PeacefulPunchCommand implements CommandExecutor {
 
 	@Override
@@ -35,7 +37,9 @@ public class PeacefulPunchCommand implements CommandExecutor {
 	}
 	
 	private void sendUsageMessage(CommandSender sender) {
+		ConfigManager config = ConfigManager.getInstance();
 		
+		sender.sendMessage(config.getUsageMessage());
 	}
 
 }

@@ -20,9 +20,11 @@ public class Events implements Listener {
 		}
 		
 		Player damager = (Player) eDamager;
-		ItemStack item = damager.getItemInUse();
+		@SuppressWarnings("deprecation")
+		ItemStack item = damager.getItemInHand();
 		
 		if (item == null) {
+			System.out.println("Material null");
 			e.setCancelled(true);
 			return;
 		}
@@ -31,11 +33,13 @@ public class Events implements Listener {
 		
 		if (config.isMaterialBlocked(item.getType())) {
 			e.setCancelled(true);
+			System.out.println("Material blocked");
 			return;
 		}
 		
 		if (!config.isMobHurtable(e.getEntity().getType())) {
 			e.setCancelled(true);
+			System.out.println("entity blocked");
 			return;
 		}
 		
